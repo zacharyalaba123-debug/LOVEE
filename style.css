@@ -205,6 +205,8 @@ body {
 .game-area {
     width: 400px;
     height: 400px;
+    max-width: 90vw;
+    max-height: 90vw;
     border: 3px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     position: relative;
@@ -247,6 +249,7 @@ body {
     position: relative;
     width: 400px;
     height: 300px;
+    max-width: 90vw;
     background: white;
     cursor: pointer;
     perspective: 1000px;
@@ -472,40 +475,57 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .sudoku-content h1 {
-        font-size: 32px;
+        font-size: 28px;
     }
 
     .sudoku-content p {
-        font-size: 16px;
+        font-size: 15px;
+        padding: 0 20px;
     }
 
     .sudoku-board {
-        grid-template-columns: repeat(9, 50px);
-        padding: 10px;
+        grid-template-columns: repeat(9, 36px);
+        padding: 6px;
+        grid-gap: 1px;
     }
 
     .sudoku-cell {
-        width: 50px;
-        height: 50px;
-        font-size: 18px;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .check-btn, .skip-btn {
+        padding: 10px 30px;
+        font-size: 16px;
     }
 
     .game-content h1 {
-        font-size: 32px;
+        font-size: 28px;
     }
 
     .game-content p {
         font-size: 16px;
+        padding: 0 20px;
+    }
+
+    .hearts-counter {
+        font-size: 28px;
+        padding: 12px 25px;
     }
 
     .game-area {
-        width: 300px;
-        height: 300px;
+        width: 90vw;
+        max-width: 350px;
+        height: 90vw;
+        max-height: 350px;
     }
 
-    .envelope {
-        width: 350px;
-        height: 260px;
+    .envelope:not(.hidden) {
+        width: 90vw;
+        max-width: 350px;
+        height: calc(90vw * 0.75);
+        max-height: 260px;
     }
 
     .heart-decoration {
@@ -518,8 +538,14 @@ body {
     }
 
     .letter {
-        width: 95%;
-        padding: 30px;
+        width: 92%;
+        padding: 30px 25px;
+        max-height: 85vh;
+    }
+
+    .letter-photo {
+        width: 160px;
+        height: 200px;
     }
 
     .letter-content h1 {
@@ -532,22 +558,73 @@ body {
 }
 
 @media (max-width: 480px) {
-    .envelope {
-        width: 280px;
-        height: 210px;
+    body {
+        overflow-x: hidden;
     }
 
-    .heart-decoration {
-        font-size: 50px;
+    .sudoku-content h1 {
+        font-size: 24px;
     }
 
-    .click-text {
+    .sudoku-content p {
+        font-size: 14px;
+        padding: 0 15px;
+    }
+
+    .sudoku-board {
+        grid-template-columns: repeat(9, 32px);
+        padding: 5px;
+        grid-gap: 1px;
+    }
+
+    .sudoku-cell {
+        width: 32px;
+        height: 32px;
         font-size: 14px;
     }
 
+    .check-btn, .skip-btn {
+        padding: 10px 25px;
+        font-size: 15px;
+    }
+
+    .game-content h1 {
+        font-size: 24px;
+    }
+
+    .game-content p {
+        font-size: 14px;
+    }
+
+    .hearts-counter {
+        font-size: 24px;
+        padding: 10px 20px;
+    }
+
+    .envelope:not(.hidden) {
+        width: 85vw;
+        max-width: 280px;
+        height: calc(85vw * 0.75);
+        max-height: 210px;
+    }
+
+    .heart-decoration {
+        font-size: 45px;
+    }
+
+    .click-text {
+        font-size: 13px;
+    }
+
     .letter {
-        padding: 20px;
+        padding: 20px 15px;
         max-height: 90vh;
+        width: 95%;
+    }
+
+    .letter-photo {
+        width: 140px;
+        height: 175px;
     }
 
     .letter-content h1 {
@@ -556,7 +633,19 @@ body {
     }
 
     .letter-content p {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.6;
+    }
+
+    .signature {
+        font-size: 16px;
+    }
+
+    .letter-close {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        top: 10px;
+        right: 10px;
     }
 }
