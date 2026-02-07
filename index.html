@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Love Letter For You ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sudoku Challenge Screen -->
+        <div class="sudoku-screen" id="sudokuScreen">
+            <div class="sudoku-content">
+                <h1>Sudoku Challenge! 🧩</h1>
+                <p>Solve the Sudoku to proceed!</p>
+                <div class="sudoku-board" id="sudokuBoard"></div>
+                <button class="check-btn" onclick="checkSudoku()">Check Answer</button>
+                <button class="skip-btn" id="skipBtn" onclick="skipSudoku()">Skip →</button>
+                <p class="sudoku-hint">Fill in the empty cells with numbers 1-9</p>
+            </div>
+        </div>
+
+        <!-- Game Challenge Screen -->
+        <div class="game-screen hidden" id="gameScreen">
+            <div class="game-content">
+                <h1>Prove Your Love! 💕</h1>
+                <p>Click on the falling hearts to unlock!</p>
+                <div class="hearts-counter">
+                    <span id="heartsCollected">0</span> / <span id="heartsNeeded">10</span>
+                </div>
+                <div class="game-area" id="gameArea"></div>
+            </div>
+        </div>
+
+        <!-- Envelope (Hidden until game is won) -->
+        <div class="envelope hidden" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+                <div class="envelope-front">
+                    <div class="heart-decoration">❤️</div>
+                    <p class="click-text">Click to open</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Love Letter Content -->
+        <div class="letter hidden" id="letter">
+            <div class="letter-close" onclick="closeLetter()">✕</div>
+            <div class="letter-content">
+                <img src="gf.jpg.jpg" alt="You" class="letter-photo">
+                <h1>My Dearest,</h1>
+                
+                <p>
+                    I wanted to take a moment to tell you how much you mean to me. 
+                    Every day with you feels like a blessing I didn't know I needed.
+                </p>
+
+                <p>
+                    The way you laugh, the way you care, the way you light up every room 
+                    you walk into - it all makes my heart skip a beat. You bring so much 
+                    joy and warmth into my life, and I honestly can't imagine my days 
+                    without you in them.
+                </p>
+
+                <p>
+                    Thank you for being you. Thank you for your kindness, your support, 
+                    and for believing in me when I needed it most. You inspire me to be 
+                    a better person every single day.
+                </p>
+
+                <p>
+                    I love you more than words could ever express. You are my favorite 
+                    person, my greatest adventure, and my forever.
+                </p>
+
+                <p style="text-align: center; font-size: 20px; color: #ff1493; font-weight: 600; margin-top: 30px;">
+                    Will you be my Valentine? 💕
+                </p>
+
+                <p class="signature">Your LOVE Z,<br>❤️</p>
+            </div>  
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay" onclick="closeLetter()"></div>
+
+        <!-- Background Music -->
+        <audio id="bgMusic" src="music.mp3.mp3" loop></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
