@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Love Letter For You ❤️</title>
+    <title>Challenge for You</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,8 +14,8 @@
                 <h1>Sudoku Challenge! 🧩</h1>
                 <p>Solve the Sudoku to proceed!</p>
                 <div class="sudoku-board" id="sudokuBoard"></div>
-                <button class="check-btn" onclick="checkSudoku()">Check Answer</button>
-                <button class="skip-btn" id="skipBtn" onclick="skipSudoku()">Skip →</button>
+                <button class="check-btn">Check Answer</button>
+                <button class="skip-btn" id="skipBtn">Skip →</button>
                 <p class="sudoku-hint">Fill in the empty cells with numbers 1-9</p>
             </div>
         </div>
@@ -45,9 +45,9 @@
 
         <!-- Love Letter Content -->
         <div class="letter hidden" id="letter">
-            <div class="letter-close" onclick="closeLetter()">✕</div>
+            <div class="letter-close" id="letterClose">✕</div>
             <div class="letter-content">
-                <img src="gf.jpg.jpg" alt="You" class="letter-photo">
+                <img src="gf.jpg" alt="You" class="letter-photo">
                 <h1>My Dearest,</h1>
                 
                 <p>
@@ -82,12 +82,12 @@
         </div>
 
         <!-- Overlay -->
-        <div class="overlay" id="overlay" onclick="closeLetter()"></div>
+        <div class="overlay" id="overlay"></div>
 
         <!-- Background Music -->
-        <audio id="bgMusic" src="music.mp3.mp3" loop></audio>
+        <audio id="bgMusic" src="music.mp3" loop></audio>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="/script.js"></script>
 </body>
 </html>

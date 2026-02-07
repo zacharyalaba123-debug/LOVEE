@@ -7,16 +7,39 @@ A beautiful, interactive love letter website with an animated envelope that open
 ✨ **Interactive Envelope** - Smooth animation when clicked
 💕 **Romantic Design** - Beautiful pink gradient with hearts
 📱 **Responsive** - Works perfectly on desktop, tablet, and mobile
-⚡ **No Dependencies** - Pure HTML, CSS, and JavaScript
+⚡ **Vite Powered** - Lightning-fast development and builds
 🚀 **Vercel Ready** - Easy one-click deployment
 
 ## Getting Started
 
 ### Local Development
 
-1. Clone this repository or extract the files
-2. Open `index.html` in your web browser
-3. Click the envelope to open your love letter!
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Run development server:
+```bash
+npm run dev
+```
+
+3. Open your browser to the URL shown (usually http://localhost:5173)
+4. Click the envelope to open your love letter!
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+This creates an optimized build in the `dist` folder.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
 
 ### Customization
 
@@ -27,32 +50,37 @@ Edit the text in `index.html` to personalize your love letter. You can:
 
 ## Deployment to Vercel
 
-### Method 1: Using Vercel CLI
+### Method 1: Using GitHub (Recommended)
+
+1. Push your code to GitHub:
+```bash
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+```
+
+2. Go to [vercel.com](https://vercel.com)
+3. Click "New Project"
+4. Import your GitHub repository
+5. Vercel will auto-detect Vite and deploy!
+
+### Method 2: Using Vercel CLI
 
 ```bash
 # Install Vercel CLI
 npm i -g vercel
 
 # Deploy
-vercel
+vercel --prod
 ```
 
-### Method 2: Using GitHub
+### Method 3: Drag & Drop
 
-1. Push your code to GitHub
+1. Build your project: `npm run build`
 2. Go to [vercel.com](https://vercel.com)
-3. Click "New Project"
-4. Select your repository
-5. Click "Deploy"
+3. Drag and drop the `dist` folder
 
-### Method 3: Using Vercel UI
-
-1. Go to [vercel.com](https://vercel.com)
-2. Click "Add New" → "Project"
-3. Upload the folder or drag and drop
-4. Click "Deploy"
-
-Your site will be live on a Vercel URL instantly!
+Your site will be live instantly!
 
 ## Project Structure
 

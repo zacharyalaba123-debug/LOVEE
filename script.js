@@ -1,7 +1,23 @@
-// Sudoku Game Variables
+// Get all DOM elements first
 const sudokuScreen = document.getElementById('sudokuScreen');
 const sudokuBoard = document.getElementById('sudokuBoard');
+const gameScreen = document.getElementById('gameScreen');
+const gameArea = document.getElementById('gameArea');
+const heartsCollected = document.getElementById('heartsCollected');
+const heartsNeeded = document.getElementById('heartsNeeded');
+const envelope = document.getElementById('envelope');
+const letter = document.getElementById('letter');
+const overlay = document.getElementById('overlay');
+const skipBtn = document.getElementById('skipBtn');
+const checkBtn = document.querySelector('.check-btn');
+const letterCloseBtn = document.getElementById('letterClose');
+
+// Game state variables
 let sudokuSolved = false;
+let collectedHearts = 0;
+const requiredHearts = 10;
+let gameActive = true;
+let heartInterval = null;
 
 // Sudoku puzzle (0 = empty)
 const sudokuPuzzle = [
@@ -30,6 +46,10 @@ const sudokuSolution = [
 
 // Initialize Sudoku Board
 function initSudoku() {
+    if (!sudokuBoard) {
+        console.error('Sudoku board element not found');
+        return;
+    }
     sudokuBoard.innerHTML = '';
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
@@ -91,21 +111,13 @@ function skipSudoku() {
     startHeartsGame();
 }
 
-// Secret keyboard shortcut to show skip button (Ctrl+Shift+S)
-document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.shiftKey && event.key === 'S') {
-        const skipBtn = document.getElementById('skipBtn');
-        skipBtn.classList.toggle('visible');
-    }
-});
-
 // Start Hearts Game
 function startHeartsGame() {
-    sudokuScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
+    if (sudokuScreen) sudokuScreen.classList.add('hidden');
+    if (gameScreen) gameScreen.classList.remove('hidden');
     gameActive = true;
     collectedHearts = 0;
-    heartsCollected.textContent = '0';
+    if (heartsCollected) heartsCollected.textContent = '0';
     
     // Start creating hearts
     heartInterval = setInterval(() => {
@@ -115,26 +127,9 @@ function startHeartsGame() {
     }, 1000);
 }
 
-// Initialize Sudoku on page load
-initSudoku();
-
-// Game Variables
-const gameScreen = document.getElementById('gameScreen');
-const gameArea = document.getElementById('gameArea');
-const heartsCollected = document.getElementById('heartsCollected');
-const heartsNeeded = document.getElementById('heartsNeeded');
-const envelope = document.getElementById('envelope');
-const letter = document.getElementById('letter');
-const overlay = document.getElementById('overlay');
-
-let collectedHearts = 0;
-const requiredHearts = 10;
-let gameActive = true;
-let heartInterval = null;
-
 // Create falling hearts
 function createHeart() {
-    if (!gameActive) return;
+    if (!gameActive || !gameArea) return;
     
     const heart = document.createElement('div');
     heart.className = 'game-heart';
@@ -148,7 +143,7 @@ function createHeart() {
     heart.addEventListener('click', function(e) {
         e.stopPropagation();
         collectedHearts++;
-        heartsCollected.textContent = collectedHearts;
+        if (heartsCollected) heartsCollected.textContent = collectedHearts;
         heart.remove();
         
         if (collectedHearts >= requiredHearts) {
@@ -171,45 +166,74 @@ function winGame() {
     
     // Hide game screen and show envelope
     setTimeout(() => {
-        gameScreen.classList.add('hidden');
-        envelope.classList.remove('hidden');
+        if (gameScreen) gameScreen.classList.add('hidden');
+        if (envelope) envelope.classList.remove('hidden');
     }, 500);
 }
 
-// Open envelope and letter when clicked
-envelope.addEventListener('click', function() {
-    if (!envelope.classList.contains('hidden')) {
-        // Add open class to animate flap
-        envelope.classList.add('open');
-        
-        // Play music
-        const bgMusic = document.getElementById('bgMusic');
-        bgMusic.play().catch(() => {
-            // If autoplay is blocked, user can manually click to play
-        });
-        
-        // Show letter and overlay with delay
-        setTimeout(() => {
-            letter.classList.remove('hidden');
-            overlay.classList.add('active');
-        }, 300);
-    }
-});
-
 // Close letter function
 function closeLetter() {
-    letter.classList.add('hidden');
-    overlay.classList.remove('active');
+    if (letter) letter.classList.add('hidden');
+    if (overlay) overlay.classList.remove('active');
     
     // Reset envelope after animation
     setTimeout(() => {
-        envelope.classList.remove('open');
+        if (envelope) envelope.classList.remove('open');
     }, 600);
 }
 
-// Close when pressing Escape key
+// Set up event listeners
 document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape' && overlay.classList.contains('active')) {
+    // Secret keyboard shortcut to show skip button (Ctrl+Shift+S)
+    if (event.ctrlKey && event.shiftKey && event.key === 'S') {
+        if (skipBtn) skipBtn.classList.toggle('visible');
+    }
+    
+    // Close when pressing Escape key
+    if (event.key === 'Escape' && overlay && overlay.classList.contains('active')) {
         closeLetter();
     }
 });
+
+// Add click event listeners
+if (skipBtn) {
+    skipBtn.addEventListener('click', skipSudoku);
+}
+
+if (checkBtn) {
+    checkBtn.addEventListener('click', checkSudoku);
+}
+
+if (letterCloseBtn) {
+    letterCloseBtn.addEventListener('click', closeLetter);
+}
+
+if (overlay) {
+    overlay.addEventListener('click', closeLetter);
+}
+
+if (envelope) {
+    envelope.addEventListener('click', function() {
+        if (!envelope.classList.contains('hidden')) {
+            // Add open class to animate flap
+            envelope.classList.add('open');
+            
+            // Play music
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic) {
+                bgMusic.play().catch(() => {
+                    // If autoplay is blocked, user can manually click to play
+                });
+            }
+            
+            // Show letter and overlay with delay
+            setTimeout(() => {
+                if (letter) letter.classList.remove('hidden');
+                if (overlay) overlay.classList.add('active');
+            }, 300);
+        }
+    });
+}
+
+// Initialize Sudoku board on load
+initSudoku();
