@@ -73,6 +73,9 @@ function initSudoku() {
                 if (e.target.value && !/^[1-9]$/.test(e.target.value)) {
                     e.target.value = '';
                 }
+                // Reset highlight when user types
+                e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
             });
             
             sudokuBoard.appendChild(cell);
@@ -82,27 +85,49 @@ function initSudoku() {
 
 // Check Sudoku Solution
 function checkSudoku() {
-    let correct = true;
+    let emptyCount = 0;
+    let wrongCells = [];
     
+    // First, check for empty cells
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             const cell = document.getElementById(`cell-${i}-${j}`);
-            const value = parseInt(cell.value) || 0;
-            
-            if (value !== sudokuSolution[i][j]) {
-                correct = false;
-                break;
+            if (!cell.disabled) {
+                const cellValue = cell.value.trim();
+                
+                if (!cellValue) {
+                    emptyCount++;
+                    cell.style.background = 'rgba(255, 200, 0, 0.3)';
+                    cell.style.borderColor = 'orange';
+                } else {
+                    const value = parseInt(cellValue);
+                    
+                    if (value !== sudokuSolution[i][j]) {
+                        wrongCells.push({ row: i + 1, col: j + 1, cell: cell, correct: sudokuSolution[i][j] });
+                        cell.style.background = 'rgba(255, 0, 0, 0.3)';
+                        cell.style.borderColor = 'red';
+                    } else {
+                        // Correct cell
+                        cell.style.background = 'rgba(0, 255, 0, 0.2)';
+                        cell.style.borderColor = 'lightgreen';
+                    }
+                }
             }
         }
-        if (!correct) break;
     }
     
-    if (correct) {
-        sudokuSolved = true;
-        alert('🎉 Correct! Moving to the next challenge...');
-        startHeartsGame();
+    if (emptyCount > 0) {
+        return;
+    }
+    
+    if (wrongCells.length > 0) {
+        const firstWrong = wrongCells[0];
+        alert(`❌ Found ${wrongCells.length} wrong cell(s)! Check Row ${firstWrong.row}, Column ${firstWrong.col}.`);
+        firstWrong.cell.focus();
     } else {
-        alert('❌ Not quite right! Try again! 💪');
+        sudokuSolved = true;
+        alert('🎉 Perfect! All correct! Moving to the next challenge...');
+        startHeartsGame();
     }
 }
 
